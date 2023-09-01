@@ -58,6 +58,14 @@ if (isset($_GET['id'])) {
     </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-sm bg-info navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="admin_dashboard.php">Admin Dashboard</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
     <div class="container">
         <div class="jumbotron">
             <h1 class="display-4"><?php echo $articleTitle; ?></h1>

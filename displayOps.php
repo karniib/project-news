@@ -1,7 +1,7 @@
 <?php
 include("inc/connection.php"); 
-$query = "SELECT articles.ID, articles.dbtitle, dbCategory, dbdate, dbsource
-FROM articles";
+$query = "SELECT operators.ID, operators.FullName, operators.Email
+FROM operators";
 
 $result = mysqli_query($con, $query);
 
@@ -15,7 +15,7 @@ if (!$result) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article Table</title>
+    <title>Operators Table</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Custom styles for table */
@@ -66,10 +66,8 @@ if (!$result) {
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Date</th>
-                    <th>Source</th>
+                    <th>Name</th>
+                    <th>Email</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,10 +75,8 @@ if (!$result) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
                     echo "<td>" . $row['ID'] . "</td>";
-                    echo '<td class="article-title"><a href="article.php?id=' . $row['ID'] . '">' . $row['dbtitle'] . '</a></td>';
-                    echo "<td>" . $row['dbCategory'] . "</td>";
-                    echo "<td>" . $row['dbdate'] . "</td>";
-                    echo "<td>" . $row['dbsource'] . "</td>";
+                    echo "<td>" . $row['FullName'] . "</td>";
+                    echo "<td>" . $row['Email'] . "</td>";
                     echo "</tr>";
                 }
                 ?>
