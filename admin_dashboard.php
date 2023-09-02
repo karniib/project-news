@@ -82,7 +82,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a href="#" class="btn-action">Manage Articles</a>
+                        <a href="displayArticles.php" class="btn-action">Manage Articles</a>
                         <a href="addOperator.php" class="btn-action">Add Operator</a>
                     </td>
                 </tr>

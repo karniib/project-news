@@ -58,7 +58,7 @@ if (isset($_GET['id'])) {
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-info navbar-dark fixed-top">
+<nav class="navbar navbar-expand-sm bg-info navbar-dark ">
     <div class="container">
         <a class="navbar-brand" href="admin_dashboard.php">Admin Dashboard</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
