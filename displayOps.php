@@ -15,7 +15,7 @@ if (!$result) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operators Table</title>
+    <title>Ops Table</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Custom styles for table */
@@ -53,19 +53,31 @@ if (!$result) {
         .btn-action {
             margin-right: 5px;
         }
+        /* Additional custom styles */
+        .jumbotron {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 40px 0;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-info navbar-dark fixed-top">
+    <header>
+        <nav class="navbar navbar-expand-sm bg-info navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="admin_dashboard.php">Admin Dashboard</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
     <div class="container">
-        <a class="navbar-brand" href="admin_dashboard.php">Admin Dashboard</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</nav>
-    <div class="container">
-        <h1>Operators Table</h1>
+    <div class="jumbotron text-center" style="background-color: white; margin: 5px 0; padding: 5px;">
+    <h1 style="color: black;">Ops Table</h1>
+</div>
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -77,6 +89,14 @@ if (!$result) {
             </thead>
             <tbody>
                 <?php
+                include("inc/connection.php"); 
+                $query = "SELECT operators.ID, operators.FullName, operators.Email FROM operators";
+                $result = mysqli_query($con, $query);
+
+                if (!$result) {
+                    die("Query failed: " . mysqli_error($con));
+                }
+
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
                     echo "<td>" . $row['ID'] . "</td>";
@@ -88,6 +108,7 @@ if (!$result) {
                           </td>';
                     echo "</tr>";
                 }
+                mysqli_close($con);
                 ?>
             </tbody>
         </table>

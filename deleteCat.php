@@ -68,7 +68,7 @@ if (isset($_GET['id'])) {
         </head>
         <body>
             <div class="confirmation-box">
-                <p class="confirmation-text">Are you sure you want to delete this operator?</p>
+                <p class="confirmation-text">Are you sure you want to delete this Category?</p>
                 <div class="confirmation-buttons">
                     <a href="deleteCat.php?id=<?= $id ?>&confirm=yes" class="confirmation-button">Yes</a>
                     <a href="displayCat.php" class="confirmation-button no">No</a>

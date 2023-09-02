@@ -60,34 +60,42 @@ if (!$result) {
         </button>
     </div>
 </nav>
-    <div class="container">
-        <h1>Article Table</h1>
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Date</th>
-                    <th>Source</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<tr>";
-                    echo "<td>" . $row['ID'] . "</td>";
-                    echo '<td class="article-title"><a href="article.php?id=' . $row['ID'] . '">' . $row['dbtitle'] . '</a></td>';
-                    echo "<td>" . $row['dbCategory'] . "</td>";
-                    echo "<td>" . $row['dbdate'] . "</td>";
-                    echo "<td>" . $row['dbsource'] . "</td>";
-                    echo "</tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
-    <!-- Include Bootstrap JS (optional) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<div class="container">
+    <h1>Article Table</h1>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Source</th>
+                <th>Action</th> <!-- New column for actions -->
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>" . $row['ID'] . "</td>";
+                echo '<td class="article-title"><a href="article.php?id=' . $row['ID'] . '">' . $row['dbtitle'] . '</a></td>';
+                echo "<td>" . $row['dbCategory'] . "</td>";
+                echo "<td>" . $row['dbdate'] . "</td>";
+                echo "<td>" . $row['dbsource'] . "</td>";
+
+                // Add action buttons
+                echo '<td>
+                        <a href="updateArticle.php?id=' . $row['ID'] . '" class="btn btn-primary">Update</a>
+                        <a href="deleteArticle.php?id=' . $row['ID'] . '" class="btn btn-danger">Delete</a>
+                      </td>';
+
+                echo "</tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+<!-- Include Bootstrap JS (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
