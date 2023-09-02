@@ -1,7 +1,7 @@
 <?php
 include("inc/connection.php"); 
-$query = "SELECT operators.ID, operators.FullName, operators.Email
-FROM operators";
+$query = "SELECT categories.ID, categories.CatName
+FROM categories";
 
 $result = mysqli_query($con, $query);
 
@@ -15,7 +15,7 @@ if (!$result) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operators Table</title>
+    <title>Categories Table</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Custom styles for table */
@@ -65,13 +65,12 @@ if (!$result) {
     </div>
 </nav>
     <div class="container">
-        <h1>Operators Table</h1>
+        <h1>Categories Table</h1>
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
+                    <th>Category Name</th>
                     <th>Action</th> <!-- New column for actions -->
                 </tr>
             </thead>
@@ -80,11 +79,10 @@ if (!$result) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
                     echo "<td>" . $row['ID'] . "</td>";
-                    echo "<td>" . $row['FullName'] . "</td>";
-                    echo "<td>" . $row['Email'] . "</td>";
+                    echo "<td>" . $row['CatName'] . "</td>";
                     echo '<td>
-                            <a href="updateOps.php?id=' . $row['ID'] . '" class="btn btn-primary btn-action">Update</a>
-                            <a href="deleteOps.php?id=' . $row['ID'] . '" class="btn btn-danger btn-action">Delete</a>
+                            <a href="updateCat.php?id=' . $row['ID'] . '" class="btn btn-primary btn-action">Update</a>
+                            <a href="deleteCat.php?id=' . $row['ID'] . '" class="btn btn-danger btn-action">Delete</a>
                           </td>';
                     echo "</tr>";
                 }
@@ -96,3 +94,4 @@ if (!$result) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+                
