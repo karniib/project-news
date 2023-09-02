@@ -55,6 +55,8 @@
             border-radius: 5px;
             background-color: #007bff;
             transition: background-color 0.3s;
+            display: inline-block; /* Display buttons inline */
+            margin-right: 10px; /* Add margin for spacing between buttons */
         }
         .btn-action:hover {
             background-color: #0056b3;
@@ -77,30 +79,24 @@
                 <tr>
                     <td>
                         <a href="addArticle.php" class="btn-action">Add Article</a>
-                        <a href="displayArticles.php" class="btn-action">View Articles</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <a href="displayArticles.php" class="btn-action">Manage Articles</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <a href="addOperator.php" class="btn-action">Add Operator</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <a href="addSource.php" class="btn-action">Add Source</a>
-                        <a href="displaySources.php" class="btn-action">Manage Source</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
+                        <a href="displaySources.php" class="btn-action">Manage Source</a>
                         <a href="addCategory.php" class="btn-action">Add Category</a>
-                        <a href="displayCat.php" class="btn-action">Manage Category</a>
                     </td>
                 </tr>
-                <!-- Improved style for the "Manage Operators" row -->
-                <tr class="manage-row">
+                <tr>
                     <td>
+                        <a href="displayCat.php" class="btn-action">Manage Category</a>
                         <a href="displayOps.php" class="btn-action">Manage Operators</a>
                     </td>
                 </tr>
