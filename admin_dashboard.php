@@ -1,3 +1,8 @@
+<?php
+// Start the session (make sure to start the session at the very beginning of your PHP script)
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,33 +13,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
-            background-color: #f8f9fa;
+            background-image: url('images/newspapers.jpg'); /* Replace 'your-image.jpg' with your actual image file */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+            background-color: #f8f9fa; /* Fallback color in case the image is missing */
         }
         .jumbotron {
             text-align: center;
-            background-color: #343a40;
-            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.7); /* Transparent white background (adjust alpha value for transparency) */
+            color: #000000;
             padding: 40px 0;
             margin-bottom: 20px;
         }
         .container {
             text-align: center;
-        }
-        .table {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .table th {
-            background-color: #007bff;
-            color: #fff;
-            font-weight: bold;
-        }
-        .table td {
-            padding: 15px;
         }
         /* Style for the "Manage Operators" row */
         .manage-row {
@@ -61,47 +55,86 @@
         .btn-action:hover {
             background-color: #0056b3;
         }
+        /* Custom colors for cards */
+        .card {
+            background-color: #dcdcdc; /* Slightly darker gray background color */
+            border: 1px solid #e6e6e6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Hide overflow content */
+        }
+        .card-title {
+            color: #007bff;
+        }
+        .card-subtitle {
+            color: #6c757d;
+        }
+        .card-link {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .card-body-hidden {
+            display: none; /* Initially hide the card text */
+        }
+        .card:hover .card-body-hidden {
+            display: block; /* Display card text on hover */
+        }
     </style>
 </head>
 <body>
     <div class="jumbotron">
         <h1 class="display-4">Admin Dashboard</h1>
-        <p class="lead">Welcome to your admin control panel</p>
-    </div>
+        <p class="lead" style="color: red;">Welcome <?php echo $_SESSION["user_FullName"] ?> to your admin control panel</p>
+    </div>  
     <div class="container">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <a href="addArticle.php" class="btn-action">Add Article</a>
-                        <a href="displayArticles.php" class="btn-action">Manage Articles</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="addOperator.php" class="btn-action">Add Operator</a>
-                        <a href="addSource.php" class="btn-action">Add Source</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="displaySources.php" class="btn-action">Manage Source</a>
-                        <a href="addCategory.php" class="btn-action">Add Category</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="displayCat.php" class="btn-action">Manage Category</a>
-                        <a href="displayOps.php" class="btn-action">Manage Operators</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-title">
+                    <h5 class="card-title">Articles</h5>
+                </div>
+                <div class="card-body card-body-hidden"> <!-- Initially hidden card text -->
+                    <h6 class="card-subtitle mb-2">News Articles</h6>
+                    <a href="displayArticles.php" class="card-link">View & Manage Articles</a>
+                    <br>
+                    <a href="addArticle.php" class="card-link">Add an Article</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-title">
+                    <h5 class="card-title">Operators</h5>
+                </div>
+                <div class="card-body card-body-hidden"> <!-- Initially hidden card text -->
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="displayOps.php" class="card-link">View & Manage Operators</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-title">
+                    <h5 class="card-title">Categories</h5>
+                </div>
+                <div class="card-body card-body-hidden"> <!-- Initially hidden card text -->
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="displayCat.php" class="card-link">View & Manage Categories</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-title">
+                    <h5 class="card-title">Sources</h5>
+                </div>
+                <div class="card-body card-body-hidden"> <!-- Initially hidden card text -->
+                    <h6 class="card-subtitle mb-2">Only trusted ones</h6>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="displaySources.php" class="card-link">View & Manage Sources</a>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 </body>
 </html>

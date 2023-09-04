@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,18 +27,52 @@
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
+        .social-part .fa{
+    padding-right:20px;
+}
+ul li a{
+    margin-right: 20px;
+}
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm bg-info navbar-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="admin_dashboard.php">Admin Dashboard</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-sm   navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
         </button>
-    </div>
-</nav>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="#">admin dashboard <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item dropdown dmenu">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+              Account
+            </a>
+            <div class="dropdown-menu sm-menu">
+              <a class="dropdown-item" href="displayOpByID.php">you are logged in as <?php echo $_SESSION["user_FullName"] ?></a>
+              <a class="dropdown-item" href="#">logout</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Call</a>
+          </li>
+          </ul>
+          <div class="social-part">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <i class="fa fa-instagram" aria-hidden="true"></i>
+          </div>
+        </div>
+      </nav>
 <div class="mt-4 p-5 bg-primary text-white rounded" style="text-align: center;">
   <h1>Add an Article</h1>
 </div>
@@ -98,5 +135,17 @@
 
 <!-- Include Bootstrap JS (optional) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+$('.navbar-light .dmenu').hover(function () {
+        $(this).find('.sm-menu').first().stop(true, true).slideDown(150);
+    }, function () {
+        $(this).find('.sm-menu').first().stop(true, true).slideUp(105)
+    });
+});
+</script>
 </body>
 </html>

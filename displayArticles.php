@@ -61,7 +61,10 @@ if (!$result) {
     </div>
 </nav>
 <div class="container">
-    <h1>Article Table</h1>
+    <div class="jumbotron text-center" style="background-color: white; margin: 5px 0; padding: 5px;">
+    <h1 style="color: black;">Atrticle Table</h1>
+<div class="container">
+    <h1>Articles Table</h1>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
