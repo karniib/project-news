@@ -5,76 +5,74 @@ session_start();
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Operator Profile</title>
+    <title >Operator Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            background-image: url('images/newspapers.jpg'); /* Replace 'your-image.jpg' with your actual image file */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
             background-color: #f8f9fa;
-            text-align: center;
-            margin: 0;
-            padding: 0;
         }
-        h1 {
-            background-color: #007bff;
-            color: #fff;
-            padding: 20px 0;
-        }
-        table {
-            margin: 0 auto;
-            border-collapse: collapse;
-            width: 50%; /* Adjust the width as needed */
-        }
-        th, td {
-            border: 1px solid #e6e6e6;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #007bff;
-            color: #fff;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+
         .navbar {
-            background-color: #007bff; /* Navbar background color */
+            background-color: #007bff;
         }
 
         .navbar-dark .navbar-nav .nav-link {
-            font-size: 18px; /* Increase font size */
-            color: white !important; /* Text color (important to override Bootstrap styles) */
+            font-size: 18px;
+            color: white !important;
             margin-right: 20px;
         }
 
         .navbar-dark .navbar-toggler-icon {
-            background-color: white; /* Color of the toggler icon */
+            background-color: white;
         }
 
-        /* Define the blue-text class */
-        .blue-text {
-            color: blue;
+        .profile-container {
+            text-align: center;
+            margin-top: 20px;
         }
 
+        .profile-table {
+            margin: 0 auto;
+            width: 50%;
+            border-collapse: collapse;
+        }
+
+        .profile-table th, .profile-table td {
+            padding: 10px;
+            border: 1px solid #e6e6e6;
+            background-color: #007bff; /* Add this background color */
+            color: white; /* Text color for better contrast */
+        }
+
+        .profile-table th {
+            background-color: #007bff;
+            color: white;
+        }
     </style>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="admin_dashboard.php">Admin Dashboard</a>
+                <a class="nav-link" href="admin_dashboard.php">Admin Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about.php">About</a>
+                <a class="nav-link" href="about.php">About</a>
             </li>
             <li class="nav-item dropdown dmenu">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                  Account
+                    Account
                 </a>
                 <div class="dropdown-menu sm-menu">
                     <p style="text-align:center;">Logged in as <?php echo $_SESSION["user_FullName"] ?></p>
@@ -83,13 +81,15 @@ session_start();
                 </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="contactUS.php">Contact Us</a>
+                <a class="nav-link" href="contactUS.php">Contact Us</a>
             </li>
-          </ul>
-        </div>
-      </nav>
-    <h1>Operator Profile</h1>
-    <table>
+        </ul>
+    </div>
+</nav>
+
+<div class="profile-container">
+    <h1 style= color:white  >Operator Profile</h1>
+    <table class="table profile-table">
         <tr>
             <th>User ID</th>
             <td><?php echo $_SESSION["user_id"]; ?></td>
@@ -104,10 +104,10 @@ session_start();
         </tr>
         <!-- Add more operator-specific data fields as needed -->
     </table>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
