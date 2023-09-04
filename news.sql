@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2023 at 08:24 PM
+-- Generation Time: Sep 04, 2023 at 04:46 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -45,7 +45,14 @@ CREATE TABLE `articles` (
 --
 
 INSERT INTO `articles` (`ID`, `status`, `image`, `operator`, `dbTitle`, `dbDate`, `dbsource`, `dbauthor`, `dbarticle`, `dbcategory`) VALUES
-(1, b'0', '', '', 'hadi', '2023-09-01', 'CNN', 'hadi karnib', 'hadi is very good at programming', 'Entertainment');
+(1, b'0', 'images/121822462_2463002197341278_6665925791221406103_n.jpg', 'Hadi Karnib', 'hadi', '2023-09-01', 'mhmd', 'hadi karnib', 'hadi123\\r\\n', 'mhmdk'),
+(3, b'0', '', '', 'testing', '2003-07-19', 'CNN', 'hadi Karnib', 'test test test\r\ntest\r\nTEST', ''),
+(4, b'0', '', '', 'hadi', '2003-12-08', 'CNN', 'hadi', 'snijbiqndiuqnioqunoicq', 'mhmdk'),
+(5, b'0', '', 'Hadi Karnib', 'hadi', '2023-09-04', 'CNN', 'hadi', 'njisbdjcnkjnccs', 'mhmdk'),
+(6, b'0', '', 'Hadi Karnib', 'hadi', '2023-09-04', 'CNN', 'hadi', 'ionianiocnoiaknoimpce', 'mhmdk'),
+(7, b'0', 'images121822462_2463002197341278_6665925791221406103_n.jpg', 'Hadi Karnib', 'hadi', '2023-09-04', 'CNN', 'hadi', '44816498vfwefe', 'mhmdk'),
+(8, b'0', 'images/226490872_6124769770929838_4380003693799211281_n.jpg', 'Hadi Karnib', 'hadi', '2023-09-04', 'CNN', 'hadi', 'kmompo[pcqpmpocqmqpo,qc', 'mhmdk'),
+(9, b'0', 'images/285747973_3219292058341138_4010238713842585462_n.jpg', 'haidar karnib', 'hadi', '2012-12-12', 'CNN', 'hadi', 'auybwqcuiwnciunwincjoiwmciow', 'mhmdk');
 
 -- --------------------------------------------------------
 
@@ -57,6 +64,14 @@ CREATE TABLE `categories` (
   `ID` int(11) NOT NULL,
   `CatName` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`ID`, `CatName`) VALUES
+(3, 'kawthar'),
+(2, 'mhmdk');
 
 -- --------------------------------------------------------
 
@@ -77,7 +92,8 @@ CREATE TABLE `operators` (
 --
 
 INSERT INTO `operators` (`ID`, `FullName`, `Email`, `Password`, `Type`) VALUES
-(1, 'Hadi Karnib', 'haditest@test', '$2y$10$krIrTAJ1rglKu0F0Re1t4.t2oaG/jTeMSHX30KS1sI4nbTlS9HFZ.', b'1');
+(4, 'Hadi Karnib', 'hadikarnib03@outlook.com', '$2y$10$Uw.cLYISYu7xEOeISsHJoeDkO729IJTY8VZ70rGnFhOmoeo8GRdIW', b'1'),
+(5, 'haidar karnib', 'hadikarnib03@gmail.com', '$2y$10$iK6ahD6ARqeiq7buET5gBuTRiOl0RdQlo.fpDP8/UuByPJJiWyH9K', b'1');
 
 -- --------------------------------------------------------
 
@@ -90,6 +106,15 @@ CREATE TABLE `sources` (
   `Name` varchar(200) NOT NULL,
   `Type` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sources`
+--
+
+INSERT INTO `sources` (`ID`, `Name`, `Type`) VALUES
+(1, 'karnib', '1'),
+(2, 'mhmd', '0'),
+(3, 'kawthar', '1');
 
 --
 -- Indexes for dumped tables
@@ -105,19 +130,22 @@ ALTER TABLE `articles`
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `CatName` (`CatName`);
 
 --
 -- Indexes for table `operators`
 --
 ALTER TABLE `operators`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- Indexes for table `sources`
 --
 ALTER TABLE `sources`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `Name` (`Name`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -127,25 +155,25 @@ ALTER TABLE `sources`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `operators`
 --
 ALTER TABLE `operators`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sources`
 --
 ALTER TABLE `sources`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

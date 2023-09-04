@@ -2,14 +2,14 @@
 include("inc/connection.php");
 
 // Initialize variables
-$id = $dbarticle = $dbcategory = $dbauthor = $dbsource = $dbdate = $dbtitle = '';
+$id = $dbarticle = $dbcategory = $dbauthor = $dbsource = $dbdate = $dbtitle = $image = $operator = '';
 
 // Check if the ID is provided in the URL
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     // Fetch the article's data based on the provided ID
-    $query = "SELECT ID, dbarticle, dbcategory, dbauthor, dbsource, dbdate, dbtitle FROM articles WHERE ID='$id'";
+    $query = "SELECT ID, dbarticle, dbcategory, dbauthor, dbsource, dbdate, dbtitle, image, operator FROM articles WHERE ID='$id'";
     $result = mysqli_query($con, $query);
 
     if ($result && mysqli_num_rows($result) > 0) {
@@ -21,6 +21,8 @@ if (isset($_GET['id'])) {
         $dbsource = $row['dbsource'];
         $dbdate = $row['dbdate'];
         $dbtitle = $row['dbtitle'];
+        $image = $row['image'];
+        $operator = $row['operator'];
     } else {
         // Article with the provided ID not found
         echo "Article not found.";
@@ -30,6 +32,28 @@ if (isset($_GET['id'])) {
     // ID not provided in the URL
     echo "ID not provided.";
     exit;
+}
+
+$queryCategories = "SELECT CatName FROM categories";
+$resultCategories = mysqli_query($con, $queryCategories);
+
+$categories = array();
+while ($row = mysqli_fetch_assoc($resultCategories)) {
+    $categories[] = $row['CatName'];
+}
+
+// Fetch Sources
+$queryoperators = "SELECT FullName FROM operators";
+$resultoperators = mysqli_query($con, $queryoperators);
+$operators = array();
+while ($row = mysqli_fetch_assoc($resultoperators)) {
+    $operators[] = $row['FullName'];
+}
+$querySources = "SELECT Name FROM sources";
+$resultSources = mysqli_query($con, $querySources);
+$sources = array();
+while ($row = mysqli_fetch_assoc($resultSources)) {
+    $sources[] = $row['Name'];
 }
 
 // Check if the form has been submitted
@@ -42,6 +66,7 @@ if (isset($_POST['submit'])) {
     $dbsource = $_POST['txtsource'];
     $dbdate = $_POST['dbdate'];
     $dbtitle = $_POST['dbtitle'];
+    $operator = $_POST['txtoperator'];
 
     // Validate and sanitize the input data (you should add more validation as needed)
     $id = mysqli_real_escape_string($con, $id);
@@ -51,22 +76,34 @@ if (isset($_POST['submit'])) {
     $dbsource = mysqli_real_escape_string($con, $dbsource);
     $dbdate = mysqli_real_escape_string($con, $dbdate);
     $dbtitle = mysqli_real_escape_string($con, $dbtitle);
+    $operator = mysqli_real_escape_string($con, $operator);
 
-    // Update the data in the 'articles' table
-    $query = "UPDATE articles 
-              SET dbarticle='$dbarticle', dbcategory='$dbcategory', dbauthor='$dbauthor', dbsource='$dbsource', dbdate='$dbdate', dbtitle='$dbtitle' 
-              WHERE ID='$id'";
+    // Handle file upload
+    $uploadDir = 'images/'; // Directory where you want to store uploaded images
+    $uploadFile = $uploadDir . basename($_FILES['image']['name']);
 
-    // Execute the query
-    $result = mysqli_query($con, $query);
+    if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
+        // File uploaded successfully, update the image path in the database
+        $image = mysqli_real_escape_string($con, $uploadFile);
+        
+        // Update the data in the 'articles' table
+        $query = "UPDATE articles 
+                  SET dbarticle='$dbarticle', dbcategory='$dbcategory', dbauthor='$dbauthor', dbsource='$dbsource', dbdate='$dbdate', dbtitle='$dbtitle', image='$image', operator='$operator'
+                  WHERE ID='$id'";
 
-    // Check if the query was successful
-    if ($result) {
-        // Redirect back to a page where you display the updated article data
-        header("Location: displayArticles.php"); // Change to the appropriate page
-        exit; // Terminate the script to ensure the redirect takes effect
+        // Execute the query
+        $result = mysqli_query($con, $query);
+
+        // Check if the query was successful
+        if ($result) {
+            // Redirect back to a page where you display the updated article data
+            header("Location: displayArticles.php"); // Change to the appropriate page
+            exit; // Terminate the script to ensure the redirect takes effect
+        } else {
+            echo "Error updating data: " . mysqli_error($con);
+        }
     } else {
-        echo "Error updating data: " . mysqli_error($con);
+        echo "Error uploading file.";
     }
 }
 
@@ -117,7 +154,8 @@ mysqli_close($con);
 
         input[type="text"],
         select,
-        textarea {
+        textarea,
+        input[type="file"] {
             padding: 12px;
             border: none;
             border-radius: 5px;
@@ -127,7 +165,8 @@ mysqli_close($con);
 
         input[type="text"]:focus,
         select:focus,
-        textarea:focus {
+        textarea:focus,
+        input[type="file"]:focus {
             background-color: #e8e8e8;
             outline: none;
             border-color: #007bff;
@@ -168,44 +207,74 @@ mysqli_close($con);
 <body>
     <div class="container">
         <h1>Update Article Data</h1>
-        <form method="post" action="updateArticle.php?id=<?php echo $id; ?>" class="update-form">
-            <input type="hidden" name="id" value="<?php echo $id; ?>">
-            <div class="form-group label-input">
-                <label for="category">Category:</label>
-                <select id="category" name="txtcategory" required>
-                    <option value="" selected disabled>Select a category</option>
-                    <option value="Technology" <?php if ($dbcategory == 'Technology') echo 'selected'; ?>>Technology</option>
-                    <option value="Science" <?php if ($dbcategory == 'Science') echo 'selected'; ?>>Science</option>
-                    <option value="Politics" <?php if ($dbcategory == 'Politics') echo 'selected'; ?>>Politics</option>
-                    <option value="Entertainment" <?php if ($dbcategory == 'Entertainment') echo 'selected'; ?>>Entertainment</option>
-                </select>
-            </div>
-            <div class="form-group label-input">
-                <label for="dbauthor">Author:</label>
-                <input type="text" id="dbauthor" name="dbauthor" value="<?php echo $dbauthor; ?>" required>
-            </div>
-            <div class="form-group label-input">
-                <label for="source">Source:</label>
-                <select id="source" name="txtsource" required>
-                    <option value="" selected disabled>Select a source</option>
-                    <option value="CNN" <?php if ($dbsource == 'CNN') echo 'selected'; ?>>CNN</option>
-                    <option value="BBC" <?php if ($dbsource == 'BBC') echo 'selected'; ?>>BBC</option>
-                </select>
-            </div>
-            <div class="form-group label-input">
-                <label for="dbdate">Date:</label>
-                <input type="text" id="dbdate" name="dbdate" value="<?php echo $dbdate; ?>" required>
-            </div>
-            <div class="form-group label-input">
-                <label for="dbtitle">Title:</label>
-                <input type="text" id="dbtitle" name="dbtitle" value="<?php echo $dbtitle; ?>" required>
-            </div>
-            <div class="form-group label-input">
-                <label for="article">Article:</label>
-                <textarea id="article" name="txtarticle" columns="8" rows="6" required><?php echo $dbarticle; ?></textarea>
-            </div>
-            <button type="submit" name="submit" class="btn btn-primary">Update</button>
-        </form>
+        <!-- ... (previous code) ... -->
+
+<!-- ... (previous code) ... -->
+
+<form method="post" action="updateArticle.php?id=<?php echo $id; ?>" class="update-form" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="<?php echo $id; ?>">
+    
+    <div class="form-group label-input">
+        <label for="category">Category:</label>
+        <select id="category" name="txtcategory" required>
+            <option value="" selected disabled>Select a category</option>
+            <?php foreach ($categories as $category) { ?>
+                <option value="<?php echo $category; ?>" <?php if ($dbcategory == $category) echo 'selected'; ?>><?php echo $category; ?></option>
+            <?php } ?>
+        </select>
+    </div>
+
+    <div class="form-group label-input">
+        <label for="source">Source:</label>
+        <select id="source" name="txtsource" required>
+            <option value="" selected disabled>Select a source</option>
+            <?php foreach ($sources as $source) { ?>
+                <option value="<?php echo $source; ?>" <?php if ($dbsource == $source) echo 'selected'; ?>><?php echo $source; ?></option>
+            <?php } ?>
+        </select>
+    </div>
+    
+    <div class="form-group label-input">
+        <label for="dbauthor">Author:</label>
+        <input type="text" id="dbauthor" name="dbauthor" value="<?php echo $dbauthor; ?>" required>
+    </div>
+    
+    <div class="form-group label-input">
+        <label for="dbdate">Date:</label>
+        <input type="text" id="dbdate" name="dbdate" value="<?php echo $dbdate; ?>" required>
+    </div>
+    
+    <div class="form-group label-input">
+        <label for="dbtitle">Title:</label>
+        <input type="text" id="dbtitle" name="dbtitle" value="<?php echo $dbtitle; ?>" required>
+    </div>
+    
+    <div class="form-group label-input">
+        <label for="image">Image:</label>
+        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+        <img src="<?php echo $image; ?>" alt="Current Image" width="100">
+    </div>
+
+    <div class="form-group label-input">
+        <label for="source">Operator:</label>
+        <select id="source" name="txtoperator" required>
+            <option value="" selected disabled>Select an Operator</option>
+            <?php foreach ($operators as $operatorItem) { ?>
+                <option value="<?php echo $operatorItem; ?>" <?php if ($operator == $operatorItem) echo 'selected'; ?>><?php echo $operatorItem; ?></option>
+            <?php } ?>
+        </select>
+    </div>
+    
+    <div class="form-group label-input">
+        <label for="article">Article:</label>
+        <textarea id="article" name="txtarticle" columns="8" rows="6" required><?php echo $dbarticle; ?></textarea>
+    </div>
+    
+    <button type="submit" name="submit" class="btn btn-primary">Update</button>
+</form>
+
+<!-- ... (remaining code) ... -->
+
     </div>
 </body>
 </html>

@@ -1,10 +1,11 @@
 <?php
+SESSION_start();
 include("inc/connection.php");
 $articleTitle = "Article Title";
 $articleContent = "Invalid article ID.";
 if (isset($_GET['id'])) {
     $articleId = $_GET['id'];
-    $query = "SELECT dbtitle, dbarticle FROM articles WHERE ID = $articleId";
+    $query = "SELECT * FROM articles WHERE ID = $articleId";
     
     $result = mysqli_query($con, $query);
 
@@ -13,7 +14,7 @@ if (isset($_GET['id'])) {
     }
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-        $articleTitle = $row['dbtitle'];
+        $articleTitle = $row['dbTitle'];
         $articleContent = $row['dbarticle'];
     } else {
         $articleTitle = "Article not found.";
@@ -73,6 +74,8 @@ if (isset($_GET['id'])) {
         .blue-text {
             color: blue;
         }
+        
+
 
     </style>
 </head>
@@ -106,15 +109,32 @@ if (isset($_GET['id'])) {
             </li>
           </ul>
         </div>
-      </nav>
-    <div class="container">
-        <div class="jumbotron">
-            <h1 class="display-4"><?php echo $articleTitle; ?></h1>
-        </div>
-        <div class="article-content">
-            <?php echo $articleContent; ?>
+      </nav> 
+      <div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4"><?php echo $articleTitle; ?></h1>
+    </div>
+    
+    <div class="card">
+        <img src="<?php echo $row['image']; ?>" class="card-img-top" alt="Article Image">
+        <div class="card-body">
+            <h5 class="card-title text-center font-weight-bold">
+                <?php echo $articleTitle; ?>
+            </h5>
+            <div class="article-content">
+                <?php echo $articleContent; ?>
+            </div>
         </div>
     </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
