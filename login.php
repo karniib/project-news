@@ -17,13 +17,15 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">Login</h2>
+					<h2 class="heading-section"> admin Login</h2>
 				</div>
 			</div>
 			<div class="row justify-content-center">
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
-					<form action="loginAction.php" method="POST" class="signin-form">
+					<!-- ... (previous HTML code) ... -->
+
+<form action="loginAction.php" method="POST" class="signin-form">
     <div class="form-group">
         <input type="text" class="form-control" name="email" placeholder="Email" required>
     </div>
@@ -32,7 +34,7 @@
         <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
     </div>
     <div class="form-group">
-        <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+        <button type="submit" class="form-control btn btn-primary submit px-3">Admin Sign In</button>
     </div>
     <div class="form-group d-md-flex">
         <div class="w-50">
@@ -43,6 +45,14 @@
         </div>
     </div>
 </form>
+
+<div class="form-group">
+    <button type="button" class="form-control btn btn-primary submit px-3" onclick="location.href='signup.php';">Sign Up</button>
+</div>
+
+<div class="form-group">
+    <button type="button" class="form-control btn btn-primary submit px-3" onclick="location.href='loginUser.php';">User Sign In</button>
+</div>
 		      </div>
 				</div>
 			</div>
@@ -56,4 +66,3 @@
 
 	</body>
 </html>
-
