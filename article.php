@@ -55,17 +55,58 @@ if (isset($_GET['id'])) {
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
         }
+        .navbar {
+            background-color: #007bff; /* Navbar background color */
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            font-size: 18px; /* Increase font size */
+            color: white !important; /* Text color (important to override Bootstrap styles) */
+            margin-right: 20px;
+        }
+
+        .navbar-dark .navbar-toggler-icon {
+            background-color: white; /* Color of the toggler icon */
+        }
+
+        /* Define the blue-text class */
+        .blue-text {
+            color: blue;
+        }
+
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-info navbar-dark ">
-    <div class="container">
-        <a class="navbar-brand" href="admin_dashboard.php">Admin Dashboard</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
         </button>
-    </div>
-</nav>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="admin_dashboard.php">Admin Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.php">About</a>
+            </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Account
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <p style="text-align:center;">Logged in as <?php echo $_SESSION["user_FullName"] ?></p>
+                    <a class="dropdown-item blue-text" href="displayOpByID.php" style="text-align:center;">Info</a>
+                    <a class="dropdown-item blue-text" href="logoutAction.php" style="text-align:center;">Logout</a>
+                </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contactUS.php">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     <div class="container">
         <div class="jumbotron">
             <h1 class="display-4"><?php echo $articleTitle; ?></h1>

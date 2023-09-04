@@ -1,6 +1,7 @@
 <?php
 session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,16 +11,38 @@ session_start();
     <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* Custom styles for navigation */
+        .navbar {
+            background-color: #007bff; /* Navbar background color */
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            font-size: 18px; /* Increase font size */
+            color: white !important; /* Text color (important to override Bootstrap styles) */
+            margin-right: 20px;
+        }
+
+        .navbar-dark .navbar-toggler-icon {
+            background-color: white; /* Color of the toggler icon */
+        }
+
+        /* Define the blue-text class */
+        .blue-text {
+            color: blue;
+        }
+
         /* Custom styles */
         body {
             background-color: #f8f9fa;
         }
+
         .card {
             margin-top: 50px;
             border: none;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .card-header {
             background-color: #007bff;
             color: white;
@@ -27,17 +50,10 @@ session_start();
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
-        .social-part .fa{
-    padding-right:20px;
-}
-ul li a{
-    margin-right: 20px;
-}
     </style>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-sm   navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -45,32 +61,25 @@ ul li a{
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="#">admin dashboard <span class="sr-only"></span></a>
+              <a class="nav-link" href="admin_dashboard.php">Admin Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              <a class="nav-link" href="about.php">About</a>
             </li>
             <li class="nav-item dropdown dmenu">
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-              Account
-            </a>
-            <div class="dropdown-menu sm-menu">
-              <a class="dropdown-item" href="displayOpByID.php">you are logged in as <?php echo $_SESSION["user_FullName"] ?></a>
-              <a class="dropdown-item" href="#">logout</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Call</a>
-          </li>
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Account
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <p style="text-align:center;">Logged in as <?php echo $_SESSION["user_FullName"] ?></p>
+                    <a class="dropdown-item blue-text" href="displayOpByID.php" style="text-align:center;">Info</a>
+                    <a class="dropdown-item blue-text" href="logoutAction.php" style="text-align:center;">Logout</a>
+                </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contactUS.php">Contact Us</a>
+            </li>
           </ul>
-          <div class="social-part">
-            <i class="fa fa-facebook" aria-hidden="true"></i>
-            <i class="fa fa-twitter" aria-hidden="true"></i>
-            <i class="fa fa-instagram" aria-hidden="true"></i>
-          </div>
         </div>
       </nav>
 <div class="mt-4 p-5 bg-primary text-white rounded" style="text-align: center;">

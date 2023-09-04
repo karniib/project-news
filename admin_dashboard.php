@@ -78,9 +78,59 @@ session_start();
         .card:hover .card-body-hidden {
             display: block; /* Display card text on hover */
         }
+
+.navbar {
+            background-color: #007bff; /* Navbar background color */
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            font-size: 18px; /* Increase font size */
+            color: white !important; /* Text color (important to override Bootstrap styles) */
+            margin-right: 20px;
+        }
+
+        .navbar-dark .navbar-toggler-icon {
+            background-color: white; /* Color of the toggler icon */
+        }
+
+        /* Define the blue-text class */
+        .blue-text {
+            color: blue;
+        }
+
     </style>
 </head>
 <body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="admin_dashboard.php">Admin Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.php">About</a>
+            </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Account
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <p style="text-align:center;">Logged in as <?php echo $_SESSION["user_FullName"] ?></p>
+                    <a class="dropdown-item blue-text" href="displayOpByID.php" style="text-align:center;">Info</a>
+                    <a class="dropdown-item blue-text" href="logoutAction.php" style="text-align:center;">Logout</a>
+                </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contactUS.php">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     <div class="jumbotron">
         <h1 class="display-4">Admin Dashboard</h1>
         <p class="lead" style="color: red;">Welcome <?php echo $_SESSION["user_FullName"] ?> to your admin control panel</p>
@@ -108,6 +158,8 @@ session_start();
                 <div class="card-body card-body-hidden"> <!-- Initially hidden card text -->
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     <a href="displayOps.php" class="card-link">View & Manage Operators</a>
+                    <br>
+                    <a href="addOperator.php" class="card-link">Add an Operator</a>
                 </div>
             </div>
         </div>
@@ -119,6 +171,8 @@ session_start();
                 <div class="card-body card-body-hidden"> <!-- Initially hidden card text -->
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     <a href="displayCat.php" class="card-link">View & Manage Categories</a>
+                    <br>
+                    <a href="addCategory.php" class="card-link">Add a Category</a>
                 </div>
             </div>
         </div>
@@ -131,10 +185,82 @@ session_start();
                     <h6 class="card-subtitle mb-2">Only trusted ones</h6>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     <a href="displaySources.php" class="card-link">View & Manage Sources</a>
+                    <br>
+                    <a href="addSource.php" class="card-link">Add a Source</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 100px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            color: #007bff;
+        }
+
+        .confirmation-text {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 30px;
+        }
+
+        .btn-yes {
+            margin-top: 30px;
+            display: block;
+            margin: 0 auto;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            width: 150px;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .btn-no {
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            text-decoration: none;
+            padding: 10px;
+            font-size: 18px;
+            color: #007bff;
+            transition: color 0.3s;
+        }
+
+        .btn-no:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Logout</h1>
+        <p class="confirmation-text">Are you sure you want to log out?</p>
+        <form method="post" class="text-center">
+            <button type="submit" name="confirm_logout" class="btn btn-yes">Yes</button>
+        </form>
+        <a href="javascript:history.go(-1);" class="btn btn-no">No</a>
+    </div>
+</body>
+</html>
+
 </body>
 </html>
