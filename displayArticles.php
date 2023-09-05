@@ -1,15 +1,36 @@
 <?php
-
 SESSION_start();
-
 include("inc/connection.php"); 
-$query = "SELECT articles.ID, articles.dbtitle, dbCategory, dbdate, dbsource
-FROM articles";
 
-$result = mysqli_query($con, $query);
+// Query for Unpublished Articles
+$queryUnpublished = "SELECT articles.ID, articles.dbtitle, dbCategory, dbdate, dbsource, status
+                    FROM articles
+                    WHERE status = '0'";
+$resultUnpublished = mysqli_query($con, $queryUnpublished);
 
-if (!$result) {
+// Query for Published Articles
+$queryPublished = "SELECT articles.ID, articles.dbtitle, dbCategory, dbdate, dbsource, status
+                  FROM articles
+                  WHERE status = '1'";
+$resultPublished = mysqli_query($con, $queryPublished);
+
+if (!$resultUnpublished || !$resultPublished) {
     die("Query failed: " . mysqli_error($con));
+}
+
+// Function to update the article status to "1"
+function publishArticle($articleID) {
+    global $con;
+    $articleID = mysqli_real_escape_string($con, $articleID);
+
+    $updateQuery = "UPDATE articles SET status = '1' WHERE ID = '$articleID'";
+    $updateResult = mysqli_query($con, $updateQuery);
+
+    if ($updateResult) {
+        return true; // Success
+    } else {
+        return false; // Failure
+    }
 }
 ?>
 
@@ -74,7 +95,6 @@ if (!$result) {
     </style>
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -103,51 +123,109 @@ if (!$result) {
             </li>
           </ul>
         </div>
-      </nav>
+    </nav>
 <div class="container">
     <div class="jumbotron text-center" style="background-color: white; margin: 5px 0; padding: 5px;">
-    <h1>Articles Table</h1>
-<div class="container">
-    
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Date</th>
-                <th>Source</th>
-                <th>Action</th> <!-- New column for actions -->
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
-                echo "<td>" . $row['ID'] . "</td>";
-                echo '<td class="article-title"><a href="article.php?id=' . $row['ID'] . '">' . $row['dbtitle'] . '</a></td>';
-                echo "<td>" . $row['dbCategory'] . "</td>";
-                echo "<td>" . $row['dbdate'] . "</td>";
-                echo "<td>" . $row['dbsource'] . "</td>";
+        <h1>Articles Table</h1>
+        <div class="container">
+            <h2>Unpublished Articles</h2>
+            <table class="table table-striped table-hover">
+                <!-- Table header for Unpublished Articles -->
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Source</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <!-- Table body for Unpublished Articles -->
+                <tbody>
+                    <?php
+                    while ($row = mysqli_fetch_assoc($resultUnpublished)) {
+                        echo "<tr>";
+                        echo "<td>" . $row['ID'] . "</td>";
+                        echo '<td class="article-title"><a href="article.php?id=' . $row['ID'] . '">' . $row['dbtitle'] . '</a></td>';
+                        echo "<td>" . $row['dbCategory'] . "</td>";
+                        echo "<td>" . $row['dbdate'] . "</td>";
+                        echo "<td>" . $row['dbsource'] . "</td>";
+                        echo "<td>" . $row['status'] . "</td>";
+                        echo '<td>
+                                <a href="updateArticle.php?id=' . $row['ID'] . '" class="btn btn-primary">Update</a>
+                                <a href="deleteArticle.php?id=' . $row['ID'] . '" class="btn btn-danger">Delete</a>
+                                <button class="btn btn-success publish-button" data-article-id="' . $row['ID'] . '">Publish</button>
+                              </td>';
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
 
-                // Add action buttons
-                echo '<td>
-                        <a href="updateArticle.php?id=' . $row['ID'] . '" class="btn btn-primary">Update</a>
-                        <a href="deleteArticle.php?id=' . $row['ID'] . '" class="btn btn-danger">Delete</a>
-                      </td>';
-
-                echo "</tr>";
-            }
-            ?>
-        </tbody>
-    </table>
+        <div class="container">
+            <h2>Published Articles</h2>
+            <table class="table table-striped table-hover">
+                <!-- Table header for Published Articles -->
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Source</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <!-- Table body for Published Articles -->
+                <tbody>
+                    <?php
+                    while ($row = mysqli_fetch_assoc($resultPublished)) {
+                        echo "<tr>";
+                        echo "<td>" . $row['ID'] . "</td>";
+                        echo '<td class="article-title"><a href="article.php?id=' . $row['ID'] . '">' . $row['dbtitle'] . '</a></td>';
+                        echo "<td>" . $row['dbCategory'] . "</td>";
+                        echo "<td>" . $row['dbdate'] . "</td>";
+                        echo "<td>" . $row['dbsource'] . "</td>";
+                        echo "<td>" . $row['status'] . "</td>";
+                        echo '<td>
+                                <a href="updateArticle.php?id=' . $row['ID'] . '" class="btn btn-primary">Update</a>
+                                <a href="deleteArticle.php?id=' . $row['ID'] . '" class="btn btn-danger">Delete</a>
+                              </td>';
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+        <!-- Include Bootstrap JS (optional) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
 </div>
-<!-- Include Bootstrap JS (optional) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Handle "Publish" button click
+    $(".publish-button").click(function() {
+        var articleID = $(this).data("article-id");
+        $.ajax({
+            url: "publishArticle.php", // Create a new PHP file to handle the status update
+            method: "POST",
+            data: { id: articleID },
+            success: function(response) {
+                if (response == "success") {
+                    alert("Article published successfully.");
+                    // You can add further actions here, such as updating the UI.
+                } else {
+                    alert("Failed to publish article.");
+                }
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>

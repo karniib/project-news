@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("inc/connection.php");
 
 // Initialize variables
@@ -43,7 +44,7 @@ while ($row = mysqli_fetch_assoc($resultCategories)) {
 }
 
 // Fetch Sources
-$queryoperators = "SELECT FullName FROM operators";
+$queryoperators = "SELECT FullName FROM operators where type=1";
 $resultoperators = mysqli_query($con, $queryoperators);
 $operators = array();
 while ($row = mysqli_fetch_assoc($resultoperators)) {
@@ -85,7 +86,7 @@ if (isset($_POST['submit'])) {
     if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
         // File uploaded successfully, update the image path in the database
         $image = mysqli_real_escape_string($con, $uploadFile);
-        
+
         // Update the data in the 'articles' table
         $query = "UPDATE articles 
                   SET dbarticle='$dbarticle', dbcategory='$dbcategory', dbauthor='$dbauthor', dbsource='$dbsource', dbdate='$dbdate', dbtitle='$dbtitle', image='$image', operator='$operator'
@@ -115,28 +116,40 @@ mysqli_close($con);
 <html>
 <head>
     <title>Update Article Data</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
             font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .navbar {
+            background-color: #007bff; /* Navbar background color */
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            font-size: 18px; /* Increase font size */
+            color: white !important; /* Text color (important to override Bootstrap styles) */
+            margin-right: 20px;
+        }
+
+        .navbar-dark .navbar-toggler-icon {
+            background-color: white; /* Color of the toggler icon */
         }
 
         .container {
-            background-color: #ff6b6b; /* Vibrant red background */
+            background-color: #ff6b6b;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
+            max-width: 800px; /* Increase the maximum width */
+            margin: auto; /* Center the container horizontally */
+            margin-top: 70px; /* Add margin to push content below the navbar */
         }
 
         h1 {
-            color: #fff; /* White header text */
+            color: #fff;
             text-align: center;
         }
 
@@ -205,7 +218,38 @@ mysqli_close($con);
     </style>
 </head>
 <body>
-    <div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="admin_dashboard.php">Admin Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="about.php">About</a>
+            </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Account
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <p style="text-align:center;">Logged in as <?php echo $_SESSION["user_FullName"] ?></p>
+                    <a class="dropdown-item blue-text" href="displayOpByID.php" style="text-align:center;">Info</a>
+                    <a class="dropdown-item blue-text" href="logoutAction.php" style="text-align:center;">Logout</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contactUS.php">Contact Us</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
         <h1>Update Article Data</h1>
         <!-- ... (previous code) ... -->
 
@@ -273,7 +317,10 @@ mysqli_close($con);
     <button type="submit" name="submit" class="btn btn-primary">Update</button>
 </form>
 
-<!-- ... (remaining code) ... -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
     </div>
 </body>

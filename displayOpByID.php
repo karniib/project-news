@@ -4,7 +4,7 @@
 
     // Get operator information
     $operatorId = $_SESSION["user_id"];
-    $queryOperator = "SELECT * FROM operators WHERE ID = $operatorId";
+    $queryOperator = "SELECT * FROM users WHERE ID = $operatorId";
     $resultOperator = mysqli_query($con, $queryOperator);
 
     $operatorInfo = mysqli_fetch_assoc($resultOperator);

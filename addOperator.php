@@ -106,6 +106,13 @@ SESSION_start();
                             <label for="Password" class="form-label">Password</label>
                             <input type="Password" class="form-control" id="Password" name="txtPassword" required>
                         </div>
+                        <div class="mb-3">
+                                <label for="source" class="form-label">Role</label>
+                                <select class="form-select" id="Role" name="txtRole" required>
+                                    <option value="" selected disabled>Select a role</option>
+                                    <option value="admin">admin</option>
+                                </select>
+                            </div>
 </div>
                         <div class="mb-3">
                    <input type="submit" value="Submit">

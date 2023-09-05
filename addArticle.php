@@ -2,9 +2,9 @@
 session_start();
 include("inc/connection.php");
 
-// Fetch operators' FullNames from the "Operators" table
-$operatorNames = array();
-$query = "SELECT FullName FROM operators";
+$operatorId = $_SESSION["user_id"]
+;$operatorNames = array();
+$query = "SELECT FullName FROM users WHERE role = 'admin' and ID='$operatorId';";
 $result = mysqli_query($con, $query);
 
 if ($result) {

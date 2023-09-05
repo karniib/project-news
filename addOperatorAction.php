@@ -3,11 +3,11 @@ include("inc/connection.php");
 $FName = $_POST["txtFullName"];
 $Email = $_POST["txtEmail"];
 $Password = $_POST["txtPassword"];
-
+$Role= $_POST["txtRole"];
 // Hash the password
 $hashedPassword = password_hash($Password, PASSWORD_BCRYPT);
 
-$sql = "INSERT INTO operators (FullName, Email, Password) VALUES ('$FName', '$Email', '$hashedPassword')";
+$sql = "INSERT INTO users (FullName, Email, Password,role) VALUES ('$FName', '$Email', '$hashedPassword', '$Role')";
 $result = mysqli_query($con, $sql) or die(mysqli_error($con));
 
 if ($result) {
