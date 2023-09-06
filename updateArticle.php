@@ -44,7 +44,7 @@ while ($row = mysqli_fetch_assoc($resultCategories)) {
 }
 
 // Fetch Sources
-$queryoperators = "SELECT FullName FROM operators where type=1";
+$queryoperators = "SELECT FullName FROM users where role = 'admin'";
 $resultoperators = mysqli_query($con, $queryoperators);
 $operators = array();
 while ($row = mysqli_fetch_assoc($resultoperators)) {
@@ -96,16 +96,16 @@ if (isset($_POST['submit'])) {
         $result = mysqli_query($con, $query);
 
         // Check if the query was successful
-        if ($result) {
-            // Redirect back to a page where you display the updated article data
-            header("Location: displayArticles.php"); // Change to the appropriate page
-            exit; // Terminate the script to ensure the redirect takes effect
-        } else {
-            echo "Error updating data: " . mysqli_error($con);
-        }
+       
     } else {
         echo "Error uploading file.";
     }
+    if ($result) {
+        header("Location: displayArticles.php"); // Change to the appropriate page
+       exit; // Terminate the script to ensure the redirect takes effect
+   } else {
+       echo "Error updating data: " . mysqli_error($con);
+   }
 }
 
 // Close the database connection

@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("inc/connection.php");
-
+include("inc/security.php");
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Get form data
     $title = mysqli_real_escape_string($con, $_POST["txttitle"]);

@@ -1,5 +1,6 @@
 <?php
 include("inc/connection.php");
+include("inc/security.php");
 $Name = $_POST["txtName"];
 $Type = $_POST["txtType"];
 $sql = "INSERT INTO sources (Name, type) VALUES ('$Name', '$Type')";

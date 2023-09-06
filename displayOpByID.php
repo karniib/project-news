@@ -116,7 +116,10 @@
                 <th>Email</th>
                 <td><?php echo $operatorInfo["Email"]; ?></td>
             </tr>
-            <!-- Add more operator-specific data fields as needed -->
+            <tr>
+                <th>Role</th>
+                <td><?php echo $operatorInfo["role"]; ?></td>
+            </tr>
         </table>
 
     <!-- Display operator's articles -->

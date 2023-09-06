@@ -1,5 +1,6 @@
 <?php
 include("inc/connection.php");
+include("inc/security.php");
 $FName = $_POST["txtFullName"];
 $Email = $_POST["txtEmail"];
 $Password = $_POST["txtPassword"];

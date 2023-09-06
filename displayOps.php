@@ -1,8 +1,8 @@
 <?php
 SESSION_start();
 include("inc/connection.php"); 
-$query = "SELECT operators.ID, operators.FullName, operators.Email
-FROM operators";
+$query = "SELECT ID, FullName, Email
+FROM users WHERE role = 'admin'";
 
 $result = mysqli_query($con, $query);
 
@@ -131,7 +131,7 @@ if (!$result) {
             <tbody>
                 <?php
                 include("inc/connection.php"); 
-                $query = "SELECT operators.ID, operators.FullName, operators.Email FROM operators";
+                $query = "SELECT ID,FullName, Email FROM users WHERE role = 'admin'";
                 $result = mysqli_query($con, $query);
 
                 if (!$result) {

@@ -26,18 +26,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Fetch the user data
         $user = $result->fetch_assoc();
         if (password_verify($enteredPassword, $user["Password"])) { 
-            if($user["role"]=="admin"){
             $_SESSION["user_id"] = $user["ID"]; 
             $_SESSION["user_email"] = $email;
             $_SESSION["user_FullName"] = $user["FullName"];
+            $_SESSION["role"] = $user["role"];
+            if($user["role"]=="admin"){
 
-            // Redirect to a dashboard or other protected page
             header("Location: admin_dashboard.php");
             exit();
         } else{ 
-            $_SESSION["user_id"] = $user["ID"]; 
-            $_SESSION["user_email"] = $email;
-            $_SESSION["user_FullName"] = $user["FullName"];
+           
             header("Location: userDashboard.php");
         }}else {
             header("Location: login.php");

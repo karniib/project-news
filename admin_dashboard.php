@@ -1,6 +1,7 @@
 <?php
 // Start the session (make sure to start the session at the very beginning of your PHP script)
 session_start();
+include("inc/security.php");
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +14,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
-            background-image: url('images/newsbg.jpeg'); /* Replace 'your-image.jpg' with your actual image file */
+            background-image: url('images/news.avif'); /* Replace 'your-image.jpg' with your actual image file */
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;

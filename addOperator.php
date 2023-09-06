@@ -1,5 +1,6 @@
 <?php
 SESSION_start();
+include("inc/security.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">

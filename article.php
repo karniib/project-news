@@ -1,5 +1,6 @@
 <?php
 SESSION_start();
+include("inc/security.php");
 include("inc/connection.php");
 $articleTitle = "Article Title";
 $articleContent = "Invalid article ID.";
@@ -89,7 +90,7 @@ if (isset($_GET['id'])) {
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="admin_dashboard.php">Admin Dashboard</a>
+              <a class="nav-link" href="Userdash.php">User Dashboard</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="about.php">About</a>

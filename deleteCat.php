@@ -1,87 +1,58 @@
 <?php
-$con = mysqli_connect('localhost', 'root', '', 'news');
-if (!$con) {
-    die("Database connection failed: " . mysqli_connect_error());
-}
+include("inc/connection.php");
+include("inc/security.php");
 
-// Check if the ID is provided in the URL
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Check if the user has confirmed the deletion
+    // Check if the confirm parameter is set
     if (isset($_GET['confirm']) && $_GET['confirm'] == 'yes') {
-        // Delete the operator's data based on the provided ID
-        $query = "DELETE FROM categories WHERE ID='$id'";
+        // Perform the deletion
+        $query = "DELETE FROM categories WHERE ID = '$id'";
         $result = mysqli_query($con, $query);
 
-        // Check if the query was successful
         if ($result) {
-            // Redirect back to displayOps.php after deletion
+            // Deletion was successful
             header("Location: displayCat.php");
-            exit; // Terminate the script to ensure the redirect takes effect
+            exit;
         } else {
-            echo "Error deleting data: " . mysqli_error($con);
+            // Error occurred during deletion
+            echo "Error deleting article: " . mysqli_error($con);
         }
     } else {
-        // Display a styled confirmation message with "Yes" and "No" buttons
+        // Display a confirmation dialog
         ?>
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Delete Operator</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f8f9fa;
-                    text-align: center;
-                }
-                .confirmation-box {
-                    background-color: #fff;
-                    border: 1px solid #ddd;
-                    padding: 20px;
-                    max-width: 400px;
-                    margin: 0 auto;
-                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                }
-                .confirmation-text {
-                    font-size: 18px;
-                    margin-bottom: 20px;
-                }
-                .confirmation-buttons {
-                    display: flex;
-                    justify-content: center;
-                }
-                .confirmation-button {
-                    padding: 10px 20px;
-                    margin: 0 10px;
-                    border: none;
-                    cursor: pointer;
-                    background-color: #007bff;
-                    color: #fff;
-                    text-decoration: none;
-                    border-radius: 4px;
-                }
-                .confirmation-button.no {
-                    background-color: #ccc;
-                }
-            </style>
-        </head>
-        <body>
-            <div class="confirmation-box">
-                <p class="confirmation-text">Are you sure you want to delete this Category?</p>
-                <div class="confirmation-buttons">
-                    <a href="deleteCat.php?id=<?= $id ?>&confirm=yes" class="confirmation-button">Yes</a>
-                    <a href="displayCat.php" class="confirmation-button no">No</a>
-                </div>
-            </div>
-        </body>
-        </html>
+       <!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Category</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="alert alert-danger">
+            <h4 class="alert-heading">Delete Category</h4>
+            <hr>
+            <p class="mb-0">Are you sure you want to delete this Category?</p>
+        </div>
+        <div class="text-center">
+            <a href="deleteCat.php?id=<?= $id ?>&confirm=yes" class="btn btn-danger">Yes, Delete</a>
+            <a href="displayCat.php" class="btn btn-secondary">Cancel</a>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
         <?php
     }
 } else {
     // ID not provided in the URL
-    echo "ID not provided.";
-    exit;
+    echo "ID not provided in the URL.";
 }
 
 // Close the database connection

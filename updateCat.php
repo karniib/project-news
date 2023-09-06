@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
     // Check if the query was successful
     if ($result) {
         // Redirect back to displayCats.php
-        header("Location: displayCats.php");
+        header("Location: displayCat.php");
         exit; // Terminate the script to ensure the redirect takes effect
     } else {
         echo "Error updating data: " . mysqli_error($con);

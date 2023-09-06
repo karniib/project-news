@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
     $email = mysqli_real_escape_string($con, $email);
 
     // Update the data in the 'operators' table
-    $query = "UPDATE operators SET FullName='$fullName', Email='$email' WHERE ID='$id'";
+    $query = "UPDATE users SET FullName='$fullName', Email='$email' WHERE ID='$id'";
 
     // Execute the query
     $result = mysqli_query($con, $query);
@@ -37,7 +37,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     // Fetch the operator's data based on the provided ID
-    $query = "SELECT ID, FullName, Email FROM operators WHERE ID='$id'";
+    $query = "SELECT ID, FullName, Email FROM users WHERE ID='$id' and role='admin'";
     $result = mysqli_query($con, $query);
 
     if ($result && mysqli_num_rows($result) > 0) {
@@ -134,7 +134,7 @@ mysqli_close($con);
 <body>
     <div class="container">
         <h1>Update Operator Data</h1>
-        <form method="post" action="update.php" class="update-form">
+        <form method="post" action="updateOps.php" class="update-form">
             <input type="hidden" name="id" value="<?php echo $id; ?>">
             <div class="form-group">
                 <label for="fullName">Full Name:</label>

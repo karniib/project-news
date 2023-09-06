@@ -1,4 +1,5 @@
 <?php
+include("inc/security.php");
 include("inc/connection.php");
 $CatName = $_POST["txtCatName"];
 $sql = "INSERT INTO categories (CatName) VALUES ('$CatName')";

@@ -44,10 +44,24 @@ function publishArticle($articleID)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Article Table</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style> .navbar {
+            background-color: #007bff; /* Navbar background color */
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            font-size: 18px; /* Increase font size */
+            color: white !important; /* Text color (important to override Bootstrap styles) */
+            margin-right: 20px;
+        }
+
+        .navbar-dark .navbar-toggler-icon {
+            background-color: white; /* Color of the toggler icon */
+        }</style>
 
 </head>
 
 <body>
+    
     <nav class="navbar navbar-expand-lg navbar-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
