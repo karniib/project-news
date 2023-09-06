@@ -35,6 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: admin_dashboard.php");
             exit();
         } else{ 
+            $_SESSION["user_id"] = $user["ID"]; 
+            $_SESSION["user_email"] = $email;
+            $_SESSION["user_FullName"] = $user["FullName"];
             header("Location: userDashboard.php");
         }}else {
             header("Location: login.php");

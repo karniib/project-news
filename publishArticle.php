@@ -19,7 +19,6 @@ function publishArticle($articleID) {
 
     $updateQuery = "UPDATE articles SET status = '1' WHERE ID = '$articleID'";
     $updateResult = mysqli_query($con, $updateQuery);
-
     if ($updateResult) {
         return true; // Success
     } else {
