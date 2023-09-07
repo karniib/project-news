@@ -3,7 +3,6 @@ session_start();
 include("inc/connection.php");
 include("inc/security.php");
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Get form data
     $title = mysqli_real_escape_string($con, $_POST["txttitle"]);
     $date = mysqli_real_escape_string($con, $_POST["txtdate"]);
     $source = mysqli_real_escape_string($con, $_POST["txtsource"]);
@@ -34,12 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $uploadOk = 0;
     }
 
-    // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
         echo "Sorry, your file was not uploaded.";
     } else {
         if (move_uploaded_file($_FILES["txtImage"]["tmp_name"], $targetFileName)) {
-            // Insert the article data into the database
             $sql = "INSERT INTO articles (dbTitle, dbDate, dbSource, dbAuthor, dbarticle, dbcategory, image, operator)
                     VALUES ('$title', '$date', '$source', '$author', '$article', '$selectedCategory', '$targetFileName', '$selectedOperator')";
 

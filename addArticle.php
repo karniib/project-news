@@ -12,8 +12,6 @@ if ($result) {
         $operatorNames[] = $row['FullName'];
     }
 }
-
-// Fetch categories from the "categories" table
 $categoryNames = array();
 $query = "SELECT CatName FROM categories";
 $result = mysqli_query($con, $query);
@@ -25,26 +23,19 @@ if ($result) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Get form data
     $title = $_POST["txttitle"];
     $date = $_POST["txtdate"];
     $source = $_POST["txtsource"];
     $author = $_POST["txtauthor"];
     $article = $_POST["txtarticle"];
     
-    // Get the selected category
     $selectedCategory = $_POST["category"];
-
-    // Get the selected operator
     $selectedOperator = $_POST["operator"];
 
-    // File upload handling for the image
-    $targetDirectory = "images"; // Directory where uploaded images will be stored
+    $targetDirectory = "images"; 
     $targetFileName = $targetDirectory . basename($_FILES["image"]["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($targetFileName, PATHINFO_EXTENSION));
-
-    // Check if image file is a actual image or fake image
     if (isset($_POST["submit"])) {
         $check = getimagesize($_FILES["image"]["tmp_name"]);
         if ($check !== false) {
@@ -55,36 +46,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 
-    // Check file size (you can adjust the file size limit as needed)
     if ($_FILES["image"]["size"] > 5000000) {
         echo "Sorry, your file is too large.";
         $uploadOk = 0;
     }
 
-    // Allow certain file formats (you can add more formats if needed)
     if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif") {
         echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
         $uploadOk = 0;
     }
 
-    // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
         echo "Sorry, your file was not uploaded.";
-    // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFileName)) {
-            // Insert the article data into the database
             $sql = "INSERT INTO articles (dbTitle, dbDate, dbSource, dbAuthor, dbarticle, dbcategory, image, operator)
                     VALUES ('$title', '$date', '$source', '$author', '$article', '$selectedCategory', '$targetFileName', '$selectedOperator')";
 
             $result = mysqli_query($con, $sql);
 
             if ($result) {
-                // Display success message
                 echo '<div style="text-align: center; margin-top: 20px; font-size: 24px; color: green;">Article Added</div>';
             } else {
-                // Handle the error here if needed
                 echo "Error: " . mysqli_error($con);
             }
         } else {
@@ -100,30 +84,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Article</title>
-    <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Custom styles for navigation */
         .navbar {
-            background-color: #007bff; /* Navbar background color */
+            background-color: #007bff; 
         }
 
         .navbar-dark .navbar-nav .nav-link {
-            font-size: 18px; /* Increase font size */
-            color: white !important; /* Text color (important to override Bootstrap styles) */
+            font-size: 18px; 
+            color: white !important;
             margin-right: 20px;
         }
 
         .navbar-dark .navbar-toggler-icon {
-            background-color: white; /* Color of the toggler icon */
+            background-color: white; 
         }
 
-        /* Define the blue-text class */
         .blue-text {
             color: blue;
         }
 
-        /* Custom styles */
         body {
             background-color: #f8f9fa;
         }
@@ -200,8 +180,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <label for="source" class="form-label">Source</label>
                                 <select class="form-select" id="source" name="txtsource" required>
                                     <option value="" selected disabled>Select a source</option>
-                                    <option value="CNN">CNN</option>
-                                    <option value="BBC">BBC</option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -221,7 +199,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <select class="form-select" id="operator" name="txtOperator" required>
                                     <option value="" selected disabled>Select an operator</option>
                                     <?php
-                                    // Populate the operator dropdown with operator names
                                     foreach ($operatorNames as $operatorName) {
                                         echo '<option value="' . $operatorName . '">' . $operatorName . '</option>';
                                     }
@@ -233,7 +210,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <select class="form-select" id="category" name="txtcategory" required>
                                     <option value="" selected disabled>Select a category</option>
                                     <?php
-                                    // Populate the category dropdown with category names
                                     foreach ($categoryNames as $categoryName) {
                                         echo '<option value="' . $categoryName . '">' . $categoryName . '</option>';
                                     }
@@ -250,7 +226,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
     </div>
 
-    <!-- Include Bootstrap JS (optional) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
