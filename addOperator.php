@@ -75,9 +75,46 @@ include("inc/security.php");
             <li class="nav-item">
               <a class="nav-link" href="contactUS.php">Contact Us</a>
             </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Articles
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <a class="dropdown-item blue-text" href="addArticle.php" style="text-align:center;">Add an Article</a>
+                    <a class="dropdown-item blue-text" href="displayArticles.php" style="text-align:center;">All Articles</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Operators
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <a class="dropdown-item blue-text" href="displayOps.php" style="text-align:center;">View Operators</a>
+                    <a class="dropdown-item blue-text" href="addOperator.php" style="text-align:center;">Add an Operator</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Categories
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <a class="dropdown-item blue-text" href="displayCat.php" style="text-align:center;">View Categories</a>
+                    <a class="dropdown-item blue-text" href="addCategory.php" style="text-align:center;">add Categories</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Source
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <a class="dropdown-item blue-text" href="displaySources.php" style="text-align:center;">View Sources</a>
+                    <a class="dropdown-item blue-text" href="addSource.php" style="text-align:center;">add Sources</a>
+                </div>
+            </li>
           </ul>
         </div>
-      </nav>
+    </nav>
+
 <div class="mt-4 p-5 bg-primary text-white rounded" style="text-align: center;">
   <h1>Add an Operator</h1>
 </div>

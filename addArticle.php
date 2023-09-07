@@ -21,6 +21,15 @@ if ($result) {
         $categoryNames[] = $row['CatName'];
     }
 }
+$SourceNames = array();
+$query = "SELECT Name FROM Sources";
+$result = mysqli_query($con, $query);
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $SourceNames[] = $row['Name'];
+    }
+}
+
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $title = $_POST["txttitle"];
@@ -151,6 +160,42 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <li class="nav-item">
               <a class="nav-link" href="contactUS.php">Contact Us</a>
             </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Articles
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <a class="dropdown-item blue-text" href="addArticle.php" style="text-align:center;">Add an Article</a>
+                    <a class="dropdown-item blue-text" href="displayArticles.php" style="text-align:center;">All Articles</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Operators
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <a class="dropdown-item blue-text" href="displayOps.php" style="text-align:center;">View Operators</a>
+                    <a class="dropdown-item blue-text" href="addOperator.php" style="text-align:center;">Add an Operator</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Categories
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <a class="dropdown-item blue-text" href="displayCat.php" style="text-align:center;">View Categories</a>
+                    <a class="dropdown-item blue-text" href="addCategory.php" style="text-align:center;">add Categories</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Source
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <a class="dropdown-item blue-text" href="displaySources.php" style="text-align:center;">View Sources</a>
+                    <a class="dropdown-item blue-text" href="addSource.php" style="text-align:center;">add Sources</a>
+                </div>
+            </li>
           </ul>
         </div>
     </nav>
@@ -177,10 +222,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 <input type="date" class="form-control" id="date" name="txtdate" required>
                             </div>
                             <div class="mb-3">
-                                <label for="source" class="form-label">Source</label>
-                                <select class="form-select" id="source" name="txtsource" required>
-                                    <option value="" selected disabled>Select a source</option>
+                                <label for="Source" class="form-label">Source</label>
+                                <select class="form-select" id="operator" name="txtOperator" required>
+                                    <option value="" selected disabled>Select a Source</option>
+                                    <?php
+                                    foreach ($SourceNames as $SourceName) {
+                                        echo '<option value="' . $SourceName . '">' . $SourceName . '</option>';
+                                    }
+                                    ?>
                                 </select>
+                            </div>
                             </div>
                             <div class="mb-3">
                                 <label for="author" class="form-label">Author</label>

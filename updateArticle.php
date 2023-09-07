@@ -251,10 +251,7 @@ mysqli_close($con);
 
 <div class="container">
         <h1>Update Article Data</h1>
-        <!-- ... (previous code) ... -->
-
-<!-- ... (previous code) ... -->
-
+      
 <form method="post" action="updateArticle.php?id=<?php echo $id; ?>" class="update-form" enctype="multipart/form-data">
     <input type="hidden" name="id" value="<?php echo $id; ?>">
     

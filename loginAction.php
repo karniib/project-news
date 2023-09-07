@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else{ 
            
-            header("Location: userDashboard.php");
+            header("Location: ../index.php");
         }}else {
             header("Location: login.php");
         }

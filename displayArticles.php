@@ -62,33 +62,69 @@ function publishArticle($articleID)
 
 <body>
     
-    <nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="admin_dashboard.php">Admin Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.php">About</a>
-                </li>
-                <li class="nav-item dropdown dmenu">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Account
-                    </a>
-                    <div class="dropdown-menu sm-menu">
-                        <p style="text-align:center;">Logged in as <?php echo $_SESSION["user_FullName"] ?></p>
-                        <a class="dropdown-item blue-text" href="displayOpByID.php" style="text-align:center;">Info</a>
-                        <a class="dropdown-item blue-text" href="logoutAction.php" style="text-align:center;">Logout</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contactUS.php">Contact Us</a>
-                </li>
-            </ul>
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="admin_dashboard.php">Admin Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.php">About</a>
+            </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Account
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <p style="text-align:center;">Logged in as <?php echo $_SESSION["user_FullName"] ?></p>
+                    <a class="dropdown-item blue-text" href="displayOpByID.php" style="text-align:center;">Info</a>
+                    <a class="dropdown-item blue-text" href="logoutAction.php" style="text-align:center;">Logout</a>
+                </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contactUS.php">Contact Us</a>
+            </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Articles
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <a class="dropdown-item blue-text" href="addArticle.php" style="text-align:center;">Add an Article</a>
+                    <a class="dropdown-item blue-text" href="displayArticles.php" style="text-align:center;">All Articles</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Operators
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <a class="dropdown-item blue-text" href="displayOps.php" style="text-align:center;">View Operators</a>
+                    <a class="dropdown-item blue-text" href="addOperator.php" style="text-align:center;">Add an Operator</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Categories
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <a class="dropdown-item blue-text" href="displayCat.php" style="text-align:center;">View Categories</a>
+                    <a class="dropdown-item blue-text" href="addCategory.php" style="text-align:center;">add Categories</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown dmenu">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Source
+                </a>
+                <div class="dropdown-menu sm-menu">
+                    <a class="dropdown-item blue-text" href="displaySources.php" style="text-align:center;">View Sources</a>
+                    <a class="dropdown-item blue-text" href="addSource.php" style="text-align:center;">add Sources</a>
+                </div>
+            </li>
+          </ul>
         </div>
     </nav>
     <div class="container">
